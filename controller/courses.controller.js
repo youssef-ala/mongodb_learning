@@ -3,8 +3,9 @@ const { validationResult } = require("express-validator");
 const Course = require("../models/course.model");
 const httpStatusText = require("../utils/httpStatusText");
 const asyncWrapper = require("../middlewares/asyncWrapper");
+
 const getAllCourses = asyncWrapper(async (req, res) => {
-  const { query } = req.query;
+  const query = req.query;
 
   const limit = query.limit || 10;
   const page = query.page || 1;

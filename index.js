@@ -1,8 +1,10 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
-
+const path = require("path");
 const app = express();
+
+app.use("/upload", express.static(path.join(__dirname, "upload")));
 
 const mongoose = require("mongoose");
 const httpStatusText = require("./utils/httpStatusText");
@@ -16,10 +18,10 @@ mongoose.connect(uri).then(() => {
 app.use(cors());
 app.use(express.json());
 const coursesRouter = require("./routes/courses.route");
-const usersRouter = require('./routes/users.route')
+const usersRouter = require("./routes/users.route");
 
 app.use("/api/courses", coursesRouter); // /api.courses
-app.use('/api/users', usersRouter) // /api/users
+app.use("/api/users", usersRouter); // /api/users
 // global middleware for not found routes
 app.all("*", (req, res, next) => {
   return res.status(404).json({
